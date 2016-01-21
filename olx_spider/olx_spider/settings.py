@@ -13,6 +13,11 @@ BOT_NAME = 'olx_spider'
 
 SPIDER_MODULES = ['olx_spider.spiders']
 NEWSPIDER_MODULE = 'olx_spider.spiders'
+DOWNLOADER_MIDDLEWARES = {
+        'scrapy.contrib.downloadermiddleware.useragent.UserAgentMiddleware' : None,
+        'olx_spider.comm.rotate_useragent.RotateUserAgentMiddleware' :400
+    }
+CONCURRENT_REQUESTS = 8 #default 16
 # ITEM_PIPELINES = {
 #     'olx_spider.pipelines.JsonWriterPipeline': 1000,
 # }
