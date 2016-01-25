@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 import scrapy
 
-class OlxSpiderItem(scrapy.Item):
+class SpiderItem(scrapy.Item):
     url = scrapy.Field()
     phones = scrapy.Field() 
     city = scrapy.Field()

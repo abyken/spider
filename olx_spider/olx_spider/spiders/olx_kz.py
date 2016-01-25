@@ -3,7 +3,7 @@
 import re
 import ast
 import scrapy
-from olx_spider.items import OlxSpiderItem
+from olx_spider.items import SpiderItem
 
 class OlxSpider(scrapy.Spider):
     name = "olx"
@@ -25,7 +25,7 @@ class OlxSpider(scrapy.Spider):
           yield scrapy.Request(next_page, callback=self.parse_category_follow_next_page)
 
     def parse_item(self, response):
-        item = OlxSpiderItem()
+        item = SpiderItem()
         item['url'] = response.url
         item['city'] = response.css(".offerheadinner .show-map-link").xpath("strong/text()").extract_first()
         item['name'] = response.css("#offerbox .userdetails").xpath("span/text()").extract_first()
