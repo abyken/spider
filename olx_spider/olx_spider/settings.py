@@ -15,13 +15,13 @@ SPIDER_MODULES = ['olx_spider.spiders']
 NEWSPIDER_MODULE = 'olx_spider.spiders'
 DOWNLOADER_MIDDLEWARES = {
         'scrapy.contrib.downloadermiddleware.useragent.UserAgentMiddleware' : None,
-        'olx_spider.comm.rotate_useragent.RotateUserAgentMiddleware' :400
+        'olx_spider.comm.rotate_useragent.RotateUserAgentMiddleware' :400,
+        'scrapy.contrib.downloadermiddleware.httpproxy.HttpProxyMiddleware': 110,
     }
 CONCURRENT_REQUESTS = 8 #default 16
-# ITEM_PIPELINES = {
-#     'olx_spider.pipelines.JsonWriterPipeline': 1000,
-# }
-
+ITEM_PIPELINES = {
+    'olx_spider.pipelines.JsonWriterPipeline': 1000,
+}
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 #USER_AGENT = 'olx_spider (+http://www.yourdomain.com)'

@@ -7,7 +7,7 @@ import scrapy
 from olx_spider.items import SpiderItem
 
 URL = u"http://kolesa.kz"
-
+URL_PATTERN = 'http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+'
 class KolesaSpider(scrapy.Spider):
     name = "kolesa"
     allowed_domains = ["kolesa.kz",]
@@ -23,7 +23,11 @@ class KolesaSpider(scrapy.Spider):
 
     def parse_category(self, response):
         for region in response.css(".cities-block .clearfix > ul > li > a::attr('href')"):
-            yield scrapy.Request(region.extract(), callback=self.parse_region_follow_next_page)
+            region_url = region.extract()
+            if re.match(URL_PATTERN, region_url):
+                yield scrapy.Request(region_url, callback=self.parse_region_follow_next_page)
+            else:
+                yield scrapy.Request(URL+region_url, callback=self.parse_region_follow_next_page)
 
 
     def parse_region_follow_next_page(self, response):
